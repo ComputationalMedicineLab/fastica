@@ -1,0 +1,15 @@
+# Use gitignore as a white-list
+*
+
+# Package files to track:
+!.gitignore
+!Makefile
+!README.md
+!pyproject.toml
+!setup.py
+
+!mkl_wrapper.pxd
+
+!fastica.pyx
+!test_fastica.py
+!Visual\ Test\ -\ Blind\ Source\ Separation.ipynb
