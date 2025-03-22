@@ -1,0 +1,31 @@
+name: fastica
+channels:
+    - conda-forge
+    - https://software.repos.intel.com/python/conda/
+    - nodefaults
+dependencies:
+    - libblas=*=*mkl
+    - python=3.11
+    - pip
+    - setuptools
+    - wheel
+    - cython<3.0
+    - numpy<1.25
+    - scipy
+    - pandas
+    - jupyter
+    - ipython
+    - scikit-learn
+    - ninja
+    - cmake
+    - pkg-config
+    - gcc
+    - gxx
+    - line_profiler
+    - mkl=2022.2.1
+    - mkl-devel=2022.2.1
+    - mkl-include=2022.2.1
+    - intel-openmp=2023.2.0
+    - ipp=2021.9.0
+    - ipp-devel=2021.9.0
+    - ipp-include=2021.9.0

@@ -7,6 +7,8 @@
 !README.md
 !pyproject.toml
 !setup.py
+!environment.yaml
+!build_env.sh
 
 !mkl_wrapper.pxd
 

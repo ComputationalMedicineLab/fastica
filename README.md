@@ -11,19 +11,19 @@ format.
 Installation
 ------------
 
-This is a Cython project which requires a C++ build toolchain. The easiest way
-to install is to use Conda (or preferably Mamba) to install a dedicated
-environment:
+This is a Cython project which requires a C++ build toolchain in a conda
+environment. The easiest way to install is to make sure you have micromamba on
+your path, and run:
 
 ```sh
-micromamba create --name=fastica python=3.11
-micromamba activate fastica
-micromamba install 'numpy<1.26'
-micromamba install 'Cython<3.0'
-micromamba install scipy scikit-learn matplotlib jupyter ipython
-micromamba install mkl mkl-include mkl-service gxx gcc
+./build_env.sh  # (or `source build_env.sh`)
 make && make install
 ```
+
+If running `$ ./build_env.sh` fails because bash cannot find micromamba, you
+can try `source build_env.sh` instead. `build_env.sh` runs micromamba to
+install from `environment.yaml`, and additionally both adds a few hooks with
+useful environment variables and checks the installed versions.
 
 `make` by itself will run the basic build and tests. If the build fails, you
 might start by checking that you have the correct versions of `gcc` and `g++`.

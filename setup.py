@@ -8,12 +8,18 @@ Options.docstrings = True
 Options.embed_pos_in_docstring = True
 Options.fast_fail = True
 
-# This is unfortunately indirect - but seems also most reliable.
-include_dirs = [np.get_include()]
-include_dirs.extend(np.__config__.blas_info['include_dirs'])
-library_dirs = np.__config__.blas_info['library_dirs']
-define_macros = [("NPY_NO_DEPRECATED_API", "NPY_1_7_API_VERSION")]
-extra_link_args = ['-fopenmp']
+ENV_PREFIX = os.environ['CONDA_PREFIX']
+
+include_dirs = []
+library_dirs = []
+define_macros = []
+extra_link_args = []
+
+include_dirs.append(np.get_include())
+include_dirs.append(f'{ENV_PREFIX}/include/')
+library_dirs.append(f'{ENV_PREFIX}/lib/')
+define_macros.append(("NPY_NO_DEPRECATED_API", "NPY_1_7_API_VERSION"))
+extra_link_args.append('-fopenmp')
 
 # TODO: comment on what these do and why they're used
 extra_compile_args = [
