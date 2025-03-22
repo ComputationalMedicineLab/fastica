@@ -9,6 +9,7 @@
 !setup.py
 !environment.yaml
 !build_env.sh
+!example_fastica.sh
 
 !mkl_wrapper.pxd
 
