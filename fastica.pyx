@@ -914,7 +914,7 @@ def cli():
         n = X1.shape[0]
         for n_try in range(1, args.retry+1):
             logging.info('FastICA attempt %d: generating W_init', n_try)
-            W_init = np.random.random_sample((n, n))
+            W_init = np.random.normal(size=(n, n))
             W_init = align_ndarray(W_init, args.memalign)
             W, it = fastica(X1, W_init,
                             max_iter=args.max_iter,
