@@ -820,7 +820,7 @@ def cli():
     f = run_parser.add_argument
     f('data', type=Path)
     f('-W', '--W-file', type=Path, default='W.npy')
-    f('--w-init', type=Path)
+    f('--w-init', type=Path, default='w_init.npy')
     f('--max-iter', type=int, default=200)
     f('--tol', type=float, default=1e-4)
     f('--checkpoint-iter', type=int, default=0)
@@ -913,9 +913,14 @@ def cli():
         X1 = load_aligned(args.data, args.memalign)
         n = X1.shape[0]
         for n_try in range(1, args.retry+1):
-            logging.info('FastICA attempt %d: generating W_init', n_try)
-            W_init = np.random.normal(size=(n, n))
-            W_init = align_ndarray(W_init, args.memalign)
+            if args.w_init.exists():
+                logging.info('FastICA attempt %d: loading W_init from %s',
+                             n_try, args.w_init)
+                W_init = load_aligned(args.w_init, args.memalign)
+            else:
+                logging.info('FastICA attempt %d: generating W_init', n_try)
+                W_init = np.random.uniform(-0.25, 0.25, size=(n, n))
+                W_init = align_ndarray(W_init, args.memalign)
             W, it = fastica(X1, W_init,
                             max_iter=args.max_iter,
                             tol=args.tol,
@@ -930,7 +935,7 @@ def cli():
                 logging.info('Attempt %d success in %d iterations', n_try, it)
                 break
             # If we need to retry the algorithm, remove any checkpoints
-            if args.checkpoint_iter > 0:
+            if args.checkpoint_iter > 0 and n_try < args.retry:
                 shutil.rmtree(args.checkpoint_dir)
         else:
             logging.info('No convergence in %d attempts', args.retry)
